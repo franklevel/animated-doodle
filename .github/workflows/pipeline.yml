@@ -18,3 +18,12 @@ jobs:
       - name: Install Dependencies
         run: |
           npm install
+
+      - name: Create build
+        run: npm run build
+
+      - name: Upload dist
+        uses: actions/upload-artifact@v2
+        with:
+          name: dist
+          path: dist
