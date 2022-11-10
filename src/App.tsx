@@ -24,7 +24,13 @@ function App() {
           <ShowGrid
             data={shows.shows}
             xs={3}
-            header={{ title: `Search results for ${state.search.query}` }}
+            header={{
+              title: `Showing search results for ${state.search.query}`,
+              visible:
+                state.search.query && state.shows.shows.length > 0
+                  ? true
+                  : false,
+            }}
           />
         )}
         {shows.shows.length < 1 && shows.success ? <NoData /> : null}

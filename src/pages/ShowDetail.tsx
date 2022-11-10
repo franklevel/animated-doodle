@@ -5,6 +5,7 @@ import ShowClient from "../services/ShowClient";
 import { ShowType } from "../store/reducers/showReducer";
 import SearchBar from "../components/SearchBar/SearchBar";
 import { ShowSummary } from "../components/ShowSummary/ShowSummary";
+import NotFound from "../components/NotFound/NotFound";
 
 const ShowDetail = () => {
   const { showId } = useParams();
@@ -40,13 +41,14 @@ const ShowDetail = () => {
       <CssBaseline />
       <SearchBar />
       <Container sx={{ mt: 5 }}>
-        {show && (
+        {show ? (
           <Grid container spacing={0}>
             <Grid item xs={6}>
               {imageLoading && (
-                <Skeleton variant="rectangular" width={500} height={735} />
+                <Skeleton variant="rectangular" width={500} height={700} />
               )}
               <img
+                style={{ display: imageLoading ? "none" : "block" }}
                 src={show.image?.original}
                 alt={show.name}
                 width={500}
@@ -62,6 +64,8 @@ const ShowDetail = () => {
               />
             </Grid>
           </Grid>
+        ) : (
+          <NotFound />
         )}
       </Container>
     </React.Fragment>
