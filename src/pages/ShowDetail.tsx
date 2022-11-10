@@ -31,9 +31,7 @@ const ShowDetail = () => {
     if (showId) {
       getDetails(parseInt(showId));
     }
-    return () => {
-      showId;
-    };
+    return () => {};
   }, [showId]);
 
   return (

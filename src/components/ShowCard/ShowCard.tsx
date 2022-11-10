@@ -56,22 +56,24 @@ export const ShowCard = ({
       />
       <CardContent>
         <Rating
-          size="small"
+          size="medium"
           name="read-only"
           value={rating}
           precision={0.5}
           max={10}
           readOnly
         />
-        <Typography gutterBottom variant="h6" component="div">
+        <Typography gutterBottom variant="h5">
           {name ? name : <Skeleton />}
         </Typography>
         <Typography variant="subtitle2">
           Genres: {genres?.join(",") || "Uncategorized"}
         </Typography>
-        {/* <Typography variant="body2" color="text.secondary">
-          {summary ? summary : <Skeleton />}
-        </Typography> */}
+        {summary && (
+          <Typography variant="body2" color="text.secondary">
+            {summary}
+          </Typography>
+        )}
       </CardContent>
       <CardActions>
         <Button href={`/show/${id}`}>See More</Button>
