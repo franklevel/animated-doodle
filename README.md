@@ -1,5 +1,7 @@
 # DMI Assessment 🎬
 
+[![Animated Doodle - Pipeline](https://github.com/franklevel/animated-doodle/actions/workflows/pipeline.yml/badge.svg)](https://github.com/franklevel/animated-doodle/actions/workflows/pipeline.yml)
+
 This assessment project consists of building a Single Page Application using React to enabling to search and list shows and tv series.
 
 It is implemented using React Hooks, Context API and consuming a REST API from [TV Maze](https://api.tvmaze.com/shows)
@@ -37,7 +39,7 @@ npm test
 
 ## Deployment 🚚
 
-There is a demo deployed version on Vercel, you can get access here [DEMO](https://animated-doodle-fywzzxk6z-franklevel.vercel.app/)
+There is a demo deployed version on Vercel, you can get access here [DEMO](https://animated-doodle-franklevel.vercel.app/)
 However, if you want to deploy by yourself just follow this mini HOW-TO:
 
 1. Fork this project and clone int into your local environment.
