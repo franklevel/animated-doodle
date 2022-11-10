@@ -11,7 +11,21 @@ env:
 
 # jobs to be execute by the pipiline
 jobs:
-  deploy-test:
+  lint:
+    if: github.event_name != 'delete'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "16"
+          cache: "npm"
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Running Lint
+        run: npm run lint
+  test:
     if: github.event_name != 'delete'
     runs-on: ubuntu-latest
     steps:
@@ -24,6 +38,14 @@ jobs:
         run: |
           npm install
 
+      - name: Run Tests
+        run: |
+          npm run test
+
+  build:
+    if: github.event_name != 'delete'
+    runs-on: ubuntu-latest
+    steps:
       - name: Create build
         run: npm run build
 
@@ -33,11 +55,19 @@ jobs:
           name: dist
           path: dist
 
+  deploy:
+    if: github.ref != 'refs/heads/main' && !startsWith(github.ref, 'refs/tags')
+    needs: [lint, test, build]
+    runs-on: ubuntu-latest
+    steps:
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
+
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=preview --token=${{ secrets.ANIMATED_DOODLE_TOKEN }}
+
       - name: Build Project Artifacts
         run: vercel build --token=${{ secrets.ANIMATED_DOODLE_TOKEN }}
+
       - name: Deploy Project Artifacts to Vercel
         run: vercel deploy --prebuilt --token=${{ secrets.ANIMATED_DOODLE_TOKEN }}

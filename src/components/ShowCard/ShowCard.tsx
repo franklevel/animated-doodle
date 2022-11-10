@@ -1,4 +1,3 @@
-import * as React from "react";
 import Rating from "@mui/material/Rating";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";

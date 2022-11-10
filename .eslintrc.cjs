@@ -16,6 +16,9 @@ module.exports = {
     project: "./tsconfig.json",
   },
   plugins: ["react", "@typescript-eslint"],
-  rules: {},
+  rules: {
+    semi: ["error", "always"],
+    quotes: ["error", "double"],
+  },
   exclude: ["./vite.config.ts"],
 };
