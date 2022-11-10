@@ -7,6 +7,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useRef, useState } from "react";
 import Skeleton from "@mui/material/Skeleton/Skeleton";
+import slugify from "slugify";
 
 export interface ShowCardProps {
   id: number;
@@ -75,7 +76,7 @@ export const ShowCard = ({
         )}
       </CardContent>
       <CardActions>
-        <Button href={`/show/${id}`}>See More</Button>
+        <Button href={`/show/${id}/${slugify(name)}`}>See More</Button>
       </CardActions>
     </Card>
   );

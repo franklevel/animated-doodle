@@ -11,7 +11,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
       <Router>
         <Routes>
           <Route path="/" element={<App />} />
-          <Route path="/show/:showId" element={<ShowDetail />} />
+          <Route path="/show/:showId/*" element={<ShowDetail />} />
         </Routes>
       </Router>
     </AppProvider>
