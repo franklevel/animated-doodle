@@ -76,7 +76,11 @@ export const ShowCard = ({
         )}
       </CardContent>
       <CardActions>
-        <Button href={`/show/${id}/${slugify(name)}`}>See More</Button>
+        <Button
+          href={`/show/${id}/${slugify(name, { remove: /[*+~.()'"!:@]/g })}`}
+        >
+          See More
+        </Button>
       </CardActions>
     </Card>
   );
