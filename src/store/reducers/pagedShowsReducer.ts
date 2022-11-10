@@ -1,9 +1,9 @@
 import { ActionMap } from "../../utils/ActionMapper";
 
-export enum ShowActionTypes {
-  FetchStart = "@show/fetch/start",
-  FetchSuccess = "@show/fetch/success",
-  FetchError = "@show/fetch/error",
+export enum PagedShowsActionTypes {
+  FetchStart = "@paged-shows/fetch/start",
+  FetchSuccess = "@paged-shows/fetch/success",
+  FetchError = "@paged-shows/fetch/error",
 }
 
 export type ShowImageType = {
@@ -21,49 +21,53 @@ export type ShowType = {
   image: ShowImageType;
 };
 
-export type ShowStateType = {
-  shows: ShowType[];
+export type PagedShowsStateType = {
+  pagedShows: ShowType[];
   isLoading: boolean;
   error: boolean;
   success: boolean;
   message?: string;
 };
 
-type ShowPayload = {
-  [ShowActionTypes.FetchStart]: {
+type PagedShowsPayload = {
+  [PagedShowsActionTypes.FetchStart]: {
     isLoading: boolean;
   };
-  [ShowActionTypes.FetchSuccess]: {
-    shows: ShowType[];
+  [PagedShowsActionTypes.FetchSuccess]: {
+    pagedShows: ShowType[];
     success: boolean;
     isLoading: boolean;
   };
-  [ShowActionTypes.FetchError]: {
+  [PagedShowsActionTypes.FetchError]: {
     error: boolean;
     message?: string;
     isLoading: boolean;
   };
 };
 
-export type ShowActions = ActionMap<ShowPayload>[keyof ActionMap<ShowPayload>];
+export type PagedShowsActions =
+  ActionMap<PagedShowsPayload>[keyof ActionMap<PagedShowsPayload>];
 
-export const showReducer = (state: ShowStateType, action: ShowActions) => {
+export const pagedShowsReducer = (
+  state: PagedShowsStateType,
+  action: PagedShowsActions
+) => {
   switch (action.type) {
-    case ShowActionTypes.FetchStart:
+    case PagedShowsActionTypes.FetchStart:
       return {
         ...state,
         isLoading: true,
       };
 
-    case ShowActionTypes.FetchSuccess:
+    case PagedShowsActionTypes.FetchSuccess:
       return {
         ...state,
-        shows: action.payload.shows,
+        pagedShows: action.payload.pagedShows,
         success: true,
         isLoading: false,
       };
 
-    case ShowActionTypes.FetchError:
+    case PagedShowsActionTypes.FetchError:
       return {
         ...state,
         error: true,

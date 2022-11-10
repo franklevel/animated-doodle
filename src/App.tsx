@@ -2,22 +2,52 @@ import React, { useContext, useEffect } from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import SearchBar from "./components/SearchBar/SearchBar";
 import Container from "@mui/material/Container";
-import PreConsole from "./components/PreConsole/PreConsole";
 import { ShowGrid } from "./components/ShowGrid/ShowGrid";
 import { AppContext } from "./store/Context";
 import Loader from "./components/Loader/Loader";
 import NoData from "./components/NoData/NoData";
 import Welcome from "./components/Welcome/Welcome";
-import { fakeData } from "./utils/constants";
+import ShowClient from "./services/ShowClient";
+import { ShowActionTypes } from "./store/reducers/showReducer";
+import { ShowDataMapper } from "./utils/DataMapper";
+import { PagedShowsActionTypes } from "./store/reducers/pagedShowsReducer";
+import { getRandomSlice } from "./utils/ValueObjects";
 
 function App() {
-  const { state } = useContext(AppContext);
-  const { shows, isLoading } = state;
+  const { state, dispatch } = useContext(AppContext);
+  const { shows, isLoading, pagedShows } = state;
+
+  useEffect(() => {
+    const getPagedShows = async (page: number): Promise<any> => {
+      const { data } = await ShowClient.shows(page);
+      dispatch({
+        type: PagedShowsActionTypes.FetchStart,
+      });
+      if (data) {
+        const parsedData = ShowDataMapper(data);
+        dispatch({
+          type: PagedShowsActionTypes.FetchSuccess,
+          payload: {
+            pagedShows: getRandomSlice(parsedData, 4),
+          },
+        });
+      } else {
+        dispatch({
+          type: ShowActionTypes.FetchError,
+          payload: {
+            message: "Without data",
+          },
+        });
+      }
+    };
+
+    getPagedShows(1);
+  }, []);
+
   return (
     <React.Fragment>
       <CssBaseline />
       <SearchBar />
-      <PreConsole show={false} />
       <Container sx={{ paddingTop: 5 }}>
         {shows.shows.length < 1 && isLoading ? <Loader /> : <Welcome />}
         {shows.shows && (
@@ -34,11 +64,13 @@ function App() {
           />
         )}
         {shows.shows.length < 1 && shows.success ? <NoData /> : null}
-        <ShowGrid
-          data={fakeData.slice(0, 4)}
-          xs={3}
-          header={{ title: "Some random shows", visible: true }}
-        />
+        {pagedShows.pagedShows && pagedShows.pagedShows.length > 1 && (
+          <ShowGrid
+            data={pagedShows.pagedShows}
+            xs={3}
+            header={{ title: "Some random shows", visible: true }}
+          />
+        )}
       </Container>
     </React.Fragment>
   );

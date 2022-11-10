@@ -7,7 +7,7 @@ export function ShowDataMapper(data: any[]) {
       name,
       genres,
       summary,
-    } = item.show;
+    } = item.show || item;
     return {
       id,
       rating: average,

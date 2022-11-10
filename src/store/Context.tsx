@@ -9,6 +9,12 @@ const initialState = {
     success: false,
     isLoading: false,
   },
+  pagedShows: {
+    pagedShows: [],
+    error: false,
+    success: false,
+    isLoading: false,
+  },
   search: { query: "", url: "" },
 };
 
