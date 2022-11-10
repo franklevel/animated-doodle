@@ -5,6 +5,13 @@ on:
     branches:
       - main
 
+# environment variables
+env:
+  TEST_PIPELINE_USER_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  TEST_PIPELINE_USER_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  TEST_REGION: us-east-1
+
+# jobs to be execute by the pipiline
 jobs:
   deploy-test:
     if: github.event_name != 'delete'
@@ -29,4 +36,8 @@ jobs:
           path: dist
 
       - name: Deploy build
-        run: npm run deploy --stage prod
+        run: npm run deploy --stage test
+        with:
+          aws-access-key-id: ${{ env.TEST_PIPELINE_USER_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ env.TEST_PIPELINE_USER_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.TEST_REGION }}

@@ -1,9 +1,41 @@
-import { useState } from "react";
+import React, { useContext, useEffect } from "react";
+import CssBaseline from "@mui/material/CssBaseline";
+import SearchBar from "./components/SearchBar/SearchBar";
+import Container from "@mui/material/Container";
+import PreConsole from "./components/PreConsole/PreConsole";
+import { ShowGrid } from "./components/ShowGrid/ShowGrid";
+import { AppContext } from "./store/Context";
+import Loader from "./components/Loader/Loader";
+import NoData from "./components/NoData/NoData";
+import Welcome from "./components/Welcome/Welcome";
+import { fakeData } from "./utils/constants";
 
 function App() {
-  const [count, setCount] = useState(0);
-
-  return <div className="App">Hello world!</div>;
+  const { state } = useContext(AppContext);
+  const { shows, isLoading } = state;
+  return (
+    <React.Fragment>
+      <CssBaseline />
+      <SearchBar />
+      <PreConsole show={false} />
+      <Container sx={{ paddingTop: 5 }}>
+        {shows.shows.length < 1 && isLoading ? <Loader /> : <Welcome />}
+        {shows.shows && (
+          <ShowGrid
+            data={shows.shows}
+            xs={3}
+            header={{ title: `Search results for ${state.search.query}` }}
+          />
+        )}
+        {shows.shows.length < 1 && shows.success ? <NoData /> : null}
+        <ShowGrid
+          data={fakeData.slice(0, 4)}
+          xs={3}
+          header={{ title: "Some random shows", visible: true }}
+        />
+      </Container>
+    </React.Fragment>
+  );
 }
 
 export default App;

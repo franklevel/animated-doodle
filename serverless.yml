@@ -1,0 +1,15 @@
+---
+service: serverless-react-animated-doodle
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  region: ${opt:region, 'us-east-1'}
+  stage: ${opt:stage, 'test'}
+
+plugins:
+  - serverless-esbuild
+  - serverless-plugin-scripts
+  - serverless-offline
+  - serverless-s3-deploy
