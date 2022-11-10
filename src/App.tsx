@@ -53,7 +53,6 @@ function App() {
         {shows.shows && (
           <ShowGrid
             data={shows.shows}
-            xs={3}
             header={{
               title: `Showing search results for ${state.search.query}`,
               visible:
@@ -67,7 +66,6 @@ function App() {
         {pagedShows.pagedShows && pagedShows.pagedShows.length > 1 && (
           <ShowGrid
             data={pagedShows.pagedShows}
-            xs={3}
             header={{ title: "Some random shows", visible: true }}
           />
         )}

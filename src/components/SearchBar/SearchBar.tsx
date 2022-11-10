@@ -122,7 +122,13 @@ export default function SearchBar() {
                 variant="h6"
                 noWrap
                 component="div"
-                sx={{ display: { xs: "none", sm: "block" } }}
+                sx={{
+                  display: {
+                    xs: showId ? "block" : "none",
+                    sm: showId ? "block" : "none",
+                    md: "block",
+                  },
+                }}
               >
                 <MovieFilterIcon
                   fontSize="large"

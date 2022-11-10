@@ -40,20 +40,20 @@ const ShowDetail = () => {
       <SearchBar />
       <Container sx={{ mt: 5 }}>
         {show ? (
-          <Grid container spacing={0}>
-            <Grid item xs={6}>
+          <Grid container spacing={2}>
+            <Grid item xs={12} md={4}>
               {imageLoading && (
-                <Skeleton variant="rectangular" width={500} height={700} />
+                <Skeleton variant="rectangular" width="100%" height={600} />
               )}
               <img
                 style={{ display: imageLoading ? "none" : "block" }}
                 src={show.image?.original}
                 alt={show.name}
-                width={500}
+                width="100%"
                 onLoad={imageLoaded}
               />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} md={8}>
               <ShowSummary
                 name={show?.name}
                 rating={show?.rating?.average}

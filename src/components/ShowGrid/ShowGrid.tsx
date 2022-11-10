@@ -6,13 +6,12 @@ import { useMemo } from "react";
 import { ShowCard } from "../ShowCard/ShowCard";
 interface ShowGridProps {
   data: any[];
-  xs: number;
   header: {
     title: string;
     visible?: boolean;
   };
 }
-export const ShowGrid = ({ data, xs, header }: ShowGridProps) => {
+export const ShowGrid = ({ data, header }: ShowGridProps) => {
   return (
     <Container>
       {header && header.visible && (
@@ -28,7 +27,7 @@ export const ShowGrid = ({ data, xs, header }: ShowGridProps) => {
                 const { id, name, rating, genres, image } = item;
 
                 return (
-                  <Grid item xs={xs} key={id}>
+                  <Grid item xs={6} md={3} key={id}>
                     <ShowCard
                       id={id}
                       name={name}
