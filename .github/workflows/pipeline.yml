@@ -34,10 +34,9 @@ jobs:
         with:
           name: dist
           path: dist
-
-      - name: Deploy build
-        run: npm run deploy --stage test
-        with:
-          aws-access-key-id: ${{ env.TEST_PIPELINE_USER_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ env.TEST_PIPELINE_USER_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.TEST_REGION }}
+#      - name: Deploy build
+#        run: npm run deploy --stage test
+#        with:
+#          aws-access-key-id: ${{ env.TEST_PIPELINE_USER_ACCESS_KEY_ID }}
+#          aws-secret-access-key: ${{ env.TEST_PIPELINE_USER_SECRET_ACCESS_KEY }}
+#          aws-region: ${{ env.TEST_REGION }}
