@@ -36,7 +36,6 @@ export const ShowCard = ({
 
   const imageLoaded = () => {
     loaded.current += 1;
-    console.log(loaded.current);
     if (loaded.current >= 1) {
       setImageLoading(false);
     }

@@ -17,6 +17,7 @@ import ShowClient from "../../services/ShowClient";
 import Link from "@mui/material/Link/Link";
 import { useParams } from "react-router-dom";
 import MovieFilterIcon from "@mui/icons-material/MovieFilter";
+import { useCallback } from "react";
 
 export default function SearchBar() {
   const { state, dispatch } = React.useContext(AppContext);
@@ -33,27 +34,30 @@ export default function SearchBar() {
     });
   };
 
-  const handleSearch = async (event: React.FormEvent) => {
-    event.preventDefault();
-    const { data } = await ShowClient.search(state.search.query);
-    dispatch({ type: ShowActionTypes.FetchStart });
-    if (data) {
-      const parsedData = ShowDataMapper(data);
-      dispatch({
-        type: ShowActionTypes.FetchSuccess,
-        payload: {
-          shows: parsedData,
-        },
-      });
-    } else {
-      dispatch({
-        type: ShowActionTypes.FetchError,
-        payload: {
-          message: "Without data",
-        },
-      });
-    }
-  };
+  const handleSearch = useCallback(
+    async (event: React.FormEvent) => {
+      event.preventDefault();
+      const { data } = await ShowClient.search(state.search.query);
+      dispatch({ type: ShowActionTypes.FetchStart });
+      if (data) {
+        const parsedData = ShowDataMapper(data);
+        dispatch({
+          type: ShowActionTypes.FetchSuccess,
+          payload: {
+            shows: parsedData,
+          },
+        });
+      } else {
+        dispatch({
+          type: ShowActionTypes.FetchError,
+          payload: {
+            message: "Without data",
+          },
+        });
+      }
+    },
+    [state.search.query]
+  );
 
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     React.useState<null | HTMLElement>(null);
